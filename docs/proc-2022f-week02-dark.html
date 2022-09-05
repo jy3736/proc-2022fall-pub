@@ -1,0 +1,773 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Arduino Programming Basics 1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></head><body><article id="c249c3f3-60cc-4198-9258-ee6755d9e763" class="page sans"><header><img class="page-cover-image" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/arduino-1_(4).png" style="object-position:center 64.14%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/yang-tr-wb.png"/></div><h1 class="page-title">Arduino Programming Basics 1</h1><table class="properties"><tbody><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></header><div class="page-body"><h1 id="de46a442-59fc-4e86-b67c-d89e333835f3" class="block-color-pink_background">學習目標</h1><ul id="b14455a5-9ca7-4992-bb23-76a2e59fc6fa" class="bulleted-list"><li style="list-style-type:disc">複習基礎微控制器的先備知識。<ul id="4649490b-85f3-4637-ac94-add98e2c2701" class="bulleted-list"><li style="list-style-type:circle">Online Arduino Simulator - TinkerCAD</li></ul><ul id="ac6372c0-7e40-4bd7-8b03-09e31af74dff" class="bulleted-list"><li style="list-style-type:circle">Arduino C/C++ Basics</li></ul><ul id="ea8b437c-a043-4f3f-acb0-a3096f5db501" class="bulleted-list"><li style="list-style-type:circle">Arduino GPIO</li></ul></li></ul><ul id="5a56be05-22f7-4713-ae1a-e2b27499d43c" class="bulleted-list"><li style="list-style-type:disc">測試使用實驗設備：Raspberry Pi 4 實驗套件。</li></ul><h1 id="57b1f088-ad8e-4931-a8d5-bab693807e9b" class="block-color-pink_background">參考資料</h1><ul id="22810732-e527-4dbf-a5b4-5bc1f45763f0" class="bulleted-list"><li style="list-style-type:disc"><a  target="_blank" href="https://www.arduino.cc/">Arduino 官網</a> (<a  target="_blank" href="https://www.arduino.cc/">https://www.arduino.cc/</a>)<ul id="9a08d36a-66d7-4a4c-aac8-3e33e063479e" class="bulleted-list"><li style="list-style-type:circle"><a  target="_blank" href="https://www.arduino.cc/reference/en/">Arduino Language Reference</a></li></ul><ul id="4e2dc76f-e2b2-44cc-a457-1bdf2028c50e" class="bulleted-list"><li style="list-style-type:circle"><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples">Arduino Built-In Examples</a></li></ul></li></ul><ul id="4ce5fc2a-e9cb-4d0a-a026-d130573317a2" class="bulleted-list"><li style="list-style-type:disc">TinkerCAD - Arduino 線上模擬工具 (<a  target="_blank" href="https://www.tinkercad.com/">https://www.tinkercad.com/</a>)</li></ul><h1 id="2db14c51-420d-4650-b57d-4d7a603bf7de" class="block-color-pink_background">課程設計</h1><h3 id="c706e81b-991e-41ee-b639-911197ea6f82" class="block-color-purple_background">Arduino Programming Basics</h3><h3 id="13ba695e-3589-464f-90e3-9d2e01e0d35c" class="block-color-orange">Bare Minimum code needed</h3><blockquote id="a5b79249-fd67-42a7-8ac8-de23b1c8623f" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/BareMinimum">https://www.arduino.cc/en/Tutorial/BuiltInExamples/BareMinimum</a></blockquote><pre id="e0ad64de-c918-48f4-af68-e21e58cf2cb4" class="code"><code>void setup() {
+  // put your setup code here, to run once:
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+}</code></pre><pre id="2995383d-e30a-4597-a66e-9fef9f5a2145" class="code"><code>void main() {
+	setup();
+	while(1)
+		loop();
+}</code></pre><h3 id="964b5430-bb01-492f-9d39-a260560223bd" class="block-color-orange">Blink</h3><blockquote id="78727cea-4274-44e5-82b5-fe7bc6bb6505" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink">https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink</a></blockquote><div id="71c4948d-6a03-4252-a808-a2e08e66376b" class="column-list"><div id="1e321ed3-4a12-4f68-be7e-5c936fe7b3f0" style="width:56.25%" class="column"><pre id="c21478d1-e6a1-4aa1-97df-109d4869a220" class="code"><code>void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);  
+  delay(1000);                       
+  digitalWrite(LED_BUILTIN, LOW);    
+  delay(1000);                       
+}</code></pre></div><div id="08ebed65-bb05-4248-a5eb-8d8c3fc75294" style="width:43.75%" class="column"><figure id="a6f2b9d9-1e0a-4795-bae8-80348ac7a99d" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled.png"><img style="width:1204px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled.png"/></a></figure></div></div><h3 id="6307e967-33f7-4bbe-ab0c-dff50c8981a8" class="block-color-orange">Digital Read Serial</h3><blockquote id="879073c3-e158-4b47-9d89-1926d52c2f17" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/DigitalReadSerial">https://www.arduino.cc/en/Tutorial/BuiltInExamples/DigitalReadSerial</a></blockquote><div id="f92f2f0e-0b82-4d4c-a685-1d83155c4adb" class="column-list"><div id="6e0ce6d5-0947-488a-87b7-06c4dcd4b8cf" style="width:75%" class="column"><pre id="fb6c0f44-0c73-482b-89c4-6c41de3994b3" class="code"><code>#define pushButton 2
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pushButton, INPUT);
+}
+
+void loop() {
+  int buttonState = digitalRead(pushButton);
+  Serial.println(buttonState);
+  delay(1);        
+}</code></pre></div><div id="3ac53983-86a0-42aa-8eba-ccb75573ec7e" style="width:25%" class="column"><figure id="3ab8e4c6-a8cb-4061-b0d9-35f82471f02f" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%201.png"><img style="width:1233px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%201.png"/></a></figure></div></div><h3 id="f351e1f4-fb9d-4433-b47e-e305a68ceeda" class="block-color-orange">Analog Read Serial</h3><blockquote id="fdb80c5c-c250-4ea8-8bbe-75665f29b5da" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/AnalogReadSerial">https://www.arduino.cc/en/Tutorial/BuiltInExamples/AnalogReadSerial</a></blockquote><div id="a09f3c96-405c-4249-a333-16bf855add6b" class="column-list"><div id="c011e2b7-0a8c-4ad1-829e-e714cd0f564e" style="width:56.25%" class="column"><pre id="01c2fa30-5661-4d31-9f54-6ad179fc1b26" class="code"><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  delay(1);        
+}</code></pre></div><div id="54658d16-3310-4c3b-b82c-23c58df1dd4b" style="width:43.75000000000001%" class="column"><figure id="1ffef19c-3c04-4bd5-8c76-996a472fd552" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%202.png"><img style="width:1246px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%202.png"/></a></figure></div></div><p id="3e9eb14a-c8c7-4346-9229-d97bb8aa256f" class="">
+</p><h3 id="160096f2-1d09-4d97-a6fb-b58537052879" class="block-color-orange">Fade</h3><blockquote id="52177aeb-ad43-403a-898c-0bfaaf6c9fa9" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Fade">https://www.arduino.cc/en/Tutorial/BuiltInExamples/Fade</a></blockquote><div id="a8776a17-d1b8-4c64-ad33-0a7bcae2363b" class="column-list"><div id="8d83dfc8-6d00-4a9d-b428-6f300a412850" style="width:56.25%" class="column"><pre id="a6051dfd-f97e-4173-8160-2af94620df41" class="code"><code>int led = 9;           
+int brightness = 0;    
+int fadeAmount = 5;    
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  analogWrite(led, brightness);
+  brightness = brightness + fadeAmount;
+  if (brightness &lt;= 0 || brightness &gt;= 255) {
+    fadeAmount = -fadeAmount;
+  }
+  delay(30);
+}</code></pre></div><div id="f166b011-0836-41e4-a8a9-3e012ad32435" style="width:43.74999999999999%" class="column"><figure id="6835fc2e-018c-4d05-97b3-2fc12a898c92" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%203.png"><img style="width:1233px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%203.png"/></a></figure></div></div><p id="4b5cba0d-b8d2-4e28-88aa-443036dca778" class="">
+</p><h3 id="48ec6f6c-5f52-46bc-997a-bcb49cc23732" class="block-color-purple_background"><a  target="_blank" href="https://www.tinkercad.com/things/6RvdcRlBQvg-2022fall-w02-lab01/editel">課堂練習 1：Serial-port Controlled LED</a></h3><div id="63c075c5-6a53-4375-b7be-e2a117d116f1" class="column-list"><div id="929b6fb7-89a2-41aa-a622-d4b4262647e2" style="width:56.25%" class="column"><ul id="8edc4b42-35b8-45f8-a96e-c6cf7c84553f" class="bulleted-list"><li style="list-style-type:disc">Receive control commands N from TX/RX( serial port):<ul id="70269efc-c875-46fa-b603-0985b04134b7" class="bulleted-list"><li style="list-style-type:circle"><code>N = 1</code>, set the LED blinking cycle to <code>200ms</code></li></ul><ul id="cceec6d0-b2b7-42ff-89e4-65d0ef710faa" class="bulleted-list"><li style="list-style-type:circle"><code>N = 2</code>, set the LED blinking cycle to <code>1s</code></li></ul><ul id="fc12b0d9-3b87-47fc-8e71-25d0aa8e0b3f" class="bulleted-list"><li style="list-style-type:circle"><code>N = 3</code>, set the LED blinking cycle to <code>2s</code></li></ul><ul id="a83f39f5-28cf-4fb5-ad30-53dfdcffea97" class="bulleted-list"><li style="list-style-type:circle">Others, print &quot;Unknown command!&quot; to the serial port</li></ul><p id="2498cd6b-97be-4ff9-ae9f-e499ac31b154" class="">
+</p></li></ul></div><div id="4f0a5255-eb25-4b98-902e-dd3f41b9146c" style="width:43.75%" class="column"><figure id="e1483575-e649-4225-b7e2-00fc964c9bc7" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%204.png"><img style="width:1452px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%204.png"/></a></figure></div></div><pre id="7d4756d9-7895-4bf0-8bf8-f68938ceeb34" class="code"><code>void setup()
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+int dly = 100;
+int ledst = LOW;
+
+void loop()
+{
+  digitalWrite(13,ledst);
+  if (Serial.available()) {
+    int cmd = Serial.parseInt();
+    Serial.print(&quot;Received cmd = &quot;);
+    Serial.println(cmd);
+    switch(cmd) {
+      case 1 : dly = 100; break;
+      case 2 : dly = 500; break;
+      case 3 : dly = 1000; break;
+      default: Serial.println(&quot;Unknown command!&quot;); break;
+    }
+  }
+  ledst = ~ledst;
+  delay(dly);
+}</code></pre><h3 id="0cabbd5e-ddeb-4529-a38d-e1fcbebcfe9e" class="block-color-purple_background"><a  target="_blank" href="https://www.tinkercad.com/things/f0Abz6uAmmW-2022fall-w02-lab02/editel">課堂練習 2：Blink Without Delay</a></h3><div id="c94c1fd4-8ee7-454d-9f4b-d7484d8f8d1a" class="column-list"><div id="67c4f0cc-e7d1-4fe7-b81e-1237f34b02a2" style="width:50%" class="column"><ul id="f0520413-f88e-4d95-8ed4-ecd1161966ba" class="bulleted-list"><li style="list-style-type:disc">Turns on and off a LED connected to pin 13, <code>without using the delay() function</code>.<figure id="b882c199-b5e4-41a3-a31e-a671915945fd" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%205.png"><img style="width:288px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%205.png"/></a></figure></li></ul></div><div id="79eb10fb-5c82-4878-a641-e9679db0c8df" style="width:50%" class="column"><pre id="990443f7-b8c4-4055-9c44-9c93d7c03341" class="code"><code>const int led =  13;
+int ledSt = LOW;            
+
+unsigned long prevT = 0;        
+const long interval = 500;          
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  unsigned long curT = millis();
+
+  if (curT - prevT &gt;= interval) {
+    prevT = curT;
+    ledSt = ~ledSt;
+    digitalWrite(led, ledSt);
+  }
+}</code></pre></div></div><h1 id="1599be07-5658-4dcc-99e0-eedc3cab42b2" class="block-color-pink_background">課堂作業</h1><h3 id="7c3f5718-27bf-4b06-ac97-0293209ed795" class="block-color-teal_background"><a  target="_blank" href="https://www.tinkercad.com/things/2aD8S4soPHH-2022fall-w02-hw01/editel">課堂作業 1：Button/Serial Control Traffic Light </a>  <mark class="highlight-yellow">繳交期限：9/19</mark></h3><div id="306e8f0b-18ce-43f2-b7b8-e2bf0bc19975" class="column-list"><div id="fca51a0e-bde2-4e06-954c-fc5aa52a29d4" style="width:50%" class="column"><ul id="131ebece-4003-4db0-9957-80fc65b6355e" class="bulleted-list"><li style="list-style-type:disc">Based on the given Arduino circuit, design a <code>6-Mode</code> traffic light controller.</li></ul><ul id="1f6127d8-ca56-4a30-9652-ac5b8681a087" class="bulleted-list"><li style="list-style-type:disc">The operating mode changes when the button is pressed.<ul id="e103bd39-ee71-4aac-8170-a2516440f07b" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 0</code> : all LEDs are off</li></ul><ul id="858ff1fa-2d77-44a7-bb75-66bfe4793038" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 1</code> : turn on the red LED</li></ul><ul id="055e725e-ff3d-4a1b-a9e5-c0c8885d08b9" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 2</code> : red LED flashes with a period of <code>500ms</code></li></ul><ul id="d8e52c46-7d03-4a84-93ab-b35a4f882299" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 3</code> : turn on the yellow LED</li></ul><ul id="ffc10a1a-2bf8-4b97-8400-e37f2ed866e8" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 4</code> : yellow LED flashes with a period of <code>500ms</code></li></ul><ul id="4099a01f-9003-45f5-89c1-59ea6ffb7a2e" class="bulleted-list"><li style="list-style-type:circle"><code>Mode 5</code>: repeat the sequence of traffic lights<ul id="03e447f1-0c15-4f62-963e-90c99268d530" class="bulleted-list"><li style="list-style-type:square"><code>red (800ms)</code></li></ul><ul id="3714f6cc-004d-4983-88df-9afabb3a0960" class="bulleted-list"><li style="list-style-type:square"><code>red + yellow (200ms)</code></li></ul><ul id="657dd709-c016-46ab-ba46-5b9bdc7b508d" class="bulleted-list"><li style="list-style-type:square"><code>green (1s)</code></li></ul><ul id="cd154941-7019-49bb-8db0-57fb845d2b89" class="bulleted-list"><li style="list-style-type:square"><code>yellow (200ms)</code></li></ul></li></ul></li></ul></div><div id="1834f387-4f37-4441-86e0-cce27ceb4e92" style="width:50%" class="column"><figure id="4454e0b0-a0f2-4d70-a60d-99469eed57e1" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%206.png"><img style="width:1454px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/Untitled%206.png"/></a></figure><p id="d7af1620-a114-4c71-997c-8b5c65fef719" class="">
+</p></div></div><p id="44643606-34e6-4efa-af52-08edc33aed57" class="">
+</p><p id="eae5cf97-585e-4e47-a275-cd881b988fb7" class="">
+</p><figure id="948d3f35-ffe1-4a32-a4f8-7f087a00ef78" class="image"><a href="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/%25E5%259C%2596%25E7%2589%25873.png"><img style="width:1322px" src="Arduino%20Programming%20Basics%201%20a6f2b9d91e0a4795bae880348ac7a99d/%25E5%259C%2596%25E7%2589%25873.png"/></a></figure></div></article>
+<script>hljs.highlightAll();</script>
+</body></html>
