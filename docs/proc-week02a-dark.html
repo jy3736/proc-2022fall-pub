@@ -1,0 +1,738 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Week 02 - 課堂練習/作業 【調整】</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></head><body><article id="68339f9f-442a-400f-90f3-17ed185423f4" class="page sans"><header><img class="page-cover-image" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/arduino-1_(4).png" style="object-position:center 64.14%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/yang-tr-wb.png"/></div><h1 class="page-title">Week 02 - 課堂練習/作業 【調整】</h1><table class="properties"><tbody><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></header><div class="page-body"><h1 id="e5145999-182e-4f69-81ca-a8dd3c05e5b1" class="block-color-pink_background">課堂練習 - Arduino Programming Basics</h1><h3 id="b7b4adcc-d4e1-43aa-88fa-a2922023d814" class="block-color-orange">課堂練習 1：Bare Minimum code needed</h3><blockquote id="cdd6db3d-7cfc-4335-a116-a88a871b548c" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/BareMinimum">https://www.arduino.cc/en/Tutorial/BuiltInExamples/BareMinimum</a></blockquote><pre id="ca0fcc25-fc04-4f12-afba-695947f3c3bc" class="code"><code>void setup() {
+  // put your setup code here, to run once:
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+}</code></pre><pre id="0b06e089-12f1-4632-a2ae-158b049b9b86" class="code"><code>void main() {
+	setup();
+	while(1)
+		loop();
+}</code></pre><h3 id="d5053924-8297-4f5f-a597-3d5c280a47b6" class="block-color-orange">課堂練習 2：Blink</h3><blockquote id="658cb133-73d1-4260-9389-b0ea94af976a" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink">https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink</a></blockquote><div id="8aae5c61-73db-4ab6-93e4-f2e0278e3b30" class="column-list"><div id="02e22de6-c7a9-46c5-8bb3-4019f9b49c2e" style="width:56.25%" class="column"><pre id="546c4f68-5fc3-4593-8d73-5811fb07f566" class="code"><code>void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);  
+  delay(1000);                       
+  digitalWrite(LED_BUILTIN, LOW);    
+  delay(1000);                       
+}</code></pre></div><div id="5179e8a6-074b-4762-90c0-299c5d1a4a3c" style="width:43.75%" class="column"><figure id="196ebfc0-e68a-4665-8d5a-b9d5e130d991" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled.png"><img style="width:1204px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled.png"/></a></figure></div></div><h3 id="f19f2d35-50ed-43a3-9e48-93ec72c5f336" class="block-color-orange">課堂練習 3：Digital Read Serial</h3><blockquote id="9738e8d4-c94c-4fab-8111-d6c07da46cf5" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/DigitalReadSerial">https://www.arduino.cc/en/Tutorial/BuiltInExamples/DigitalReadSerial</a></blockquote><div id="50feb2de-2e74-4420-8dd3-d3371c03dc16" class="column-list"><div id="4d0c4a29-29c4-4de1-9ed5-ac22a8b52220" style="width:75%" class="column"><pre id="1c112517-3250-4e57-b79b-30f10a5da1dc" class="code"><code>#define pushButton 2
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(pushButton, INPUT);
+}
+
+void loop() {
+  int buttonState = digitalRead(pushButton);
+  Serial.println(buttonState);
+  delay(1);        
+}</code></pre></div><div id="49d5b36e-c43d-4e54-a8a5-7695c1b461d3" style="width:25%" class="column"><figure id="384cd45e-ad50-49c7-b71f-a83b5c8cd66b" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%201.png"><img style="width:1233px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%201.png"/></a></figure></div></div><h3 id="1e304fc5-0caa-4de8-b372-bf140dc6faa3" class="block-color-orange">課堂練習 4：Analog Read Serial</h3><blockquote id="a60a3fce-a9f4-4f8d-a763-00713ee1f4bc" class=""><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples/AnalogReadSerial">https://www.arduino.cc/en/Tutorial/BuiltInExamples/AnalogReadSerial</a></blockquote><div id="75bc9a76-60ee-4cb6-9cee-5f452c344350" class="column-list"><div id="beed53e6-8b41-4c8f-9f90-94310051636c" style="width:56.25%" class="column"><pre id="560f0bdc-5824-4e85-9b3a-aad1bb9022ff" class="code"><code>void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  Serial.println(sensorValue);
+  delay(1);        
+}</code></pre></div><div id="ba30f1be-7bed-4517-ab3e-ceadfbf30b90" style="width:43.75000000000001%" class="column"><figure id="598d8e69-eabf-451e-93a5-382747d62d98" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%202.png"><img style="width:1246px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%202.png"/></a></figure></div></div><h1 id="31da398c-41b2-4376-8a30-5901ce74174c" class="block-color-pink_background">課堂作業</h1><h3 id="3eea8ec0-92be-4743-bc01-1fa84a7110c4" class="block-color-teal_background"><a  target="_blank" href="https://www.tinkercad.com/things/6RvdcRlBQvg-2022fall-w02-lab01/editel">課堂作業 1：Serial-port Controlled LED</a>  繳交期限：<mark class="highlight-yellow">繳交期限：9/19</mark></h3><div id="039b9194-6557-4a71-81b8-134f08a16152" class="column-list"><div id="31f80e52-24f5-4f7b-87b3-408ecd477418" style="width:56.25%" class="column"><ul id="d228173c-1cd6-4d36-aaad-a882341a7d19" class="bulleted-list"><li style="list-style-type:disc">Receive control command N from TX/RX( serial port):<ul id="020b72fc-584f-4ab5-9214-69c67394f0dc" class="bulleted-list"><li style="list-style-type:circle"><code>N = 1</code>, set the LED blinking cycle to <code>200ms</code></li></ul><ul id="6f712908-75c3-418f-98bb-5cb33178def2" class="bulleted-list"><li style="list-style-type:circle"><code>N = 2</code>, set the LED blinking cycle to <code>1s</code></li></ul><ul id="620345ee-f2b4-4428-92e4-e56c4a6532dd" class="bulleted-list"><li style="list-style-type:circle"><code>N = 3</code>, set the LED blinking cycle to <code>2s</code></li></ul><ul id="42b29fa4-47ef-4224-9f14-4a4165be5d1c" class="bulleted-list"><li style="list-style-type:circle">Others, print &quot;Unknown command!&quot; to the serial port</li></ul><p id="756a7dd0-fcfb-4890-b629-6f15774a3551" class="">
+</p></li></ul></div><div id="26c3cc64-7138-4f24-bd55-b27d1f3e5c33" style="width:43.75%" class="column"><figure id="055d9024-14ff-4c36-88ea-29ceeb9eb241" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%203.png"><img style="width:1452px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%203.png"/></a></figure></div></div><pre id="0aee1f21-d3aa-4f62-9297-4f4c1b7a3419" class="code"><code>void setup()
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(9600);
+}
+
+int dly = 100;
+int ledst = LOW;
+
+void loop()
+{
+  digitalWrite(13,ledst);
+  if (Serial.available()) {
+    int cmd = Serial.parseInt();
+    Serial.print(&quot;Received cmd = &quot;);
+    Serial.println(cmd);
+    switch(cmd) {
+      case 1 : dly = 100; break;
+      case 2 : dly = 500; break;
+      case 3 : dly = 1000; break;
+      default: Serial.println(&quot;Unknown command!&quot;); break;
+    }
+  }
+  ledst = ~ledst;
+  delay(dly);
+}</code></pre><h3 id="95801914-0303-4c1e-a0e0-77d6d0faec3d" class="block-color-teal_background"><a  target="_blank" href="https://www.tinkercad.com/things/2aD8S4soPHH-2022fall-w02-hw01/editel">課堂作業 2：Button/Serial Control Traffic Light </a>  <mark class="highlight-yellow">繳交期限：9/19</mark></h3><div id="1829c528-8176-4ddb-973c-71287fcddcbe" class="column-list"><div id="430e8c37-3b0f-4e54-ac56-e5a829542cf3" style="width:56.25%" class="column"><ul id="5916a79c-0d15-47c4-899c-fbccd1497beb" class="bulleted-list"><li style="list-style-type:disc">Receive control command N from TX/RX( serial port):<ul id="65a98c6d-63a2-4016-87af-193cfdc16e7d" class="bulleted-list"><li style="list-style-type:circle"><code>N = 0</code> : all LEDs are off</li></ul><ul id="604dd41e-45fc-409a-bc11-d98183dfea9f" class="bulleted-list"><li style="list-style-type:circle"><code>N = 1</code> : turn on the red LED</li></ul><ul id="6cb548f9-888a-471e-a230-971fcf6ecb03" class="bulleted-list"><li style="list-style-type:circle"><code>N = 2</code> : red LED flashes with a period of <code>500ms</code></li></ul><ul id="bb002326-bcff-4459-a81a-f024a348df06" class="bulleted-list"><li style="list-style-type:circle"><code>N = 3</code> : turn on the yellow LED</li></ul><ul id="9b81040c-660d-47bd-9d15-838c84a0841e" class="bulleted-list"><li style="list-style-type:circle"><code>N = 4</code> : yellow LED flashes with a period of <code>500ms</code></li></ul><p id="827b661d-7e05-4161-9122-5131ae9967e0" class="">
+</p></li></ul></div><div id="a0335118-d724-4431-b3ca-78b6222bdb12" style="width:43.75%" class="column"><figure id="012890b5-b5b2-43b2-91d8-5345902da4bf" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%204.png"><img style="width:976px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/Untitled%204.png"/></a></figure></div></div><p id="fdf97359-9dff-40e0-8004-31eb2a338094" class="">
+</p><p id="09b2aaa2-7dc3-499c-bad0-dad7608b15f8" class="">
+</p><figure id="ee356abd-dabd-426d-9aaa-6b5d258990aa" class="image"><a href="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/%25E5%259C%2596%25E7%2589%25873.png"><img style="width:1322px" src="Week%2002%20-%20%E8%AA%B2%E5%A0%82%E7%B7%B4%E7%BF%92%20%E4%BD%9C%E6%A5%AD%20%E3%80%90%E8%AA%BF%E6%95%B4%E3%80%91%20196ebfc0e68a46658d5ab9d5e130d991/%25E5%259C%2596%25E7%2589%25873.png"/></a></figure></div></article>
+<script>hljs.highlightAll();</script>
+</body></html>
