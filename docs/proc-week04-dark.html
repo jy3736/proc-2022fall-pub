@@ -1,0 +1,807 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Arduino Programming Basics 3</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></head><body><article id="614a05c9-ecdb-4bbb-9f03-62bb54d241a0" class="page sans"><header><img class="page-cover-image" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/mcu4.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/yang-tr-wb.png"/></div><h1 class="page-title">Arduino Programming Basics 3</h1><table class="properties"><tbody><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></header><div class="page-body"><h1 id="9938c5c2-4c22-4764-9af1-5a6fda2a5278" class="block-color-pink_background">學習目標</h1><ul id="9f53c43f-feb3-4ebd-bb7c-d4a69f24d2c6" class="bulleted-list"><li style="list-style-type:disc">複習基礎微控制器的先備知識。<ul id="653448e2-1e67-48ae-a5da-984890704d36" class="bulleted-list"><li style="list-style-type:circle">Online Arduino Simulator - TinkerCAD</li></ul><ul id="63112366-efb5-4259-b222-cb97cf759a16" class="bulleted-list"><li style="list-style-type:circle">Arduino C/C++ Basics</li></ul><ul id="bd49297c-83e9-4c7f-abad-6531968e4e54" class="bulleted-list"><li style="list-style-type:circle">Arduino Digital/Analog GPIO</li></ul></li></ul><h1 id="c72fd921-d86a-4d71-ad41-014e7e2f5590" class="block-color-pink_background">參考資料</h1><ul id="02d5bc93-9e28-4600-a5e7-80e0ca7ac1a5" class="bulleted-list"><li style="list-style-type:disc"><a  target="_blank" href="https://www.arduino.cc/">Arduino 官網</a> (<a  target="_blank" href="https://www.arduino.cc/">https://www.arduino.cc/</a>)<ul id="1737073e-412e-47cf-917b-df76db5f3069" class="bulleted-list"><li style="list-style-type:circle"><a  target="_blank" href="https://www.arduino.cc/reference/en/">Arduino Language Reference</a></li></ul><ul id="448ef7fc-e63b-4267-9762-95be0267b5b8" class="bulleted-list"><li style="list-style-type:circle"><a  target="_blank" href="https://www.arduino.cc/en/Tutorial/BuiltInExamples">Arduino Built-In Examples</a></li></ul></li></ul><ul id="6a22ae87-2da8-4697-ae64-db346b063ae7" class="bulleted-list"><li style="list-style-type:disc">TinkerCAD - Arduino 線上模擬工具 (<a  target="_blank" href="https://www.tinkercad.com/">https://www.tinkercad.com/</a>)</li></ul><h1 id="dad79423-d0d6-4364-bb04-90f8f6d364d2" class="block-color-pink_background">課程設計</h1><h3 id="29601125-94b4-4aa5-bb85-4c216fa6e253" class="block-color-teal_background">課堂練習 1 - Fade</h3><hr id="70e8fe7d-9c00-411f-b77f-48201f4f0a59"/><figure id="15d47bb4-bf91-49f9-adf5-00c8e56dd959" class="image"><a href="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled.png"><img style="width:288px" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled.png"/></a></figure><h3 id="7cff3b77-68c5-46ad-b0be-5166cdef546e" class="">Arduino Sketch 1a</h3><pre id="0797f95e-426e-40ed-914f-28a87a665435" class="code code-wrap"><code>int brightness= 0;
+
+void setup()
+{
+  pinMode(9, OUTPUT);
+}
+
+void loop()
+{
+for (brightness= 0; brightness&lt;= 255; brightness+= 5) {
+    analogWrite(9, brightness);
+    delay(30);
+  }
+
+for (brightness= 255; brightness&gt;= 0; brightness-= 5) {
+    analogWrite(9, brightness);
+    delay(30);
+  }
+}</code></pre><hr id="7e2f1d27-18a4-4e14-83f4-0ee150851b6f"/><h3 id="3c34f264-d1dc-46d6-95cc-f163457fd4bf" class="">Arduino Sketch 1b</h3><pre id="62e95f9c-2fe4-43ea-a5b4-89a2f3a3c229" class="code code-wrap"><code>int led= 9;
+int brightness= 0;
+int fadeAmount= 5;
+
+void setup() {
+  pinMode(led, OUTPUT);
+}
+
+void loop() {
+  analogWrite(led, brightness);
+
+  brightness= brightness+ fadeAmount;
+
+	if (brightness&lt;= 0|| brightness&gt;= 255) {
+    fadeAmount=-fadeAmount;
+  }
+
+  delay(30);
+}</code></pre><h3 id="8b7510e7-369d-4e8a-a10f-86bdc8f44775" class="block-color-teal_background">課堂練習 2 - Blink Without Delay</h3><figure id="ec485422-7b43-41c2-a65a-ae8602ae201d" class="image"><a href="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%201.png"><img style="width:336px" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%201.png"/></a></figure><h3 id="18808ea8-5aac-4543-8d96-74dabd8c920d" class="">Arduino Sketch 2a</h3><pre id="5c1b644c-0f6b-4b45-b2c1-5108f307a2a8" class="code code-wrap"><code>const int ledPin=  LED_BUILTIN;
+bool ledState= LOW;
+unsigned long previousMillis= 0;
+const long interval= 300;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  unsigned long currentMillis= millis();
+
+if (currentMillis- previousMillis&gt;= interval) {
+    previousMillis= currentMillis;
+    ledState=!ledState;
+    digitalWrite(ledPin, ledState);
+  }
+}
+</code></pre><hr id="23b5e548-c0d6-4c13-a8d7-3e3582b7e929"/><h3 id="1c6bae3a-00f1-4999-b2b4-6b2bf01bc2d8" class="">Arduino Sketch 2b</h3><pre id="3418b25c-177e-4b40-b18c-0975dd1c62d0" class="code code-wrap"><code>const int ledPin=  LED_BUILTIN;
+bool ledState= LOW;
+unsigned long previousMillis= 0;
+const long interval= 300;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void Pa() {
+if (millis()-previousMillis&gt;= interval) {
+    previousMillis= millis();
+    ledState=!ledState;
+    digitalWrite(ledPin, ledState);
+  }
+}
+
+void loop() {
+  Pa();
+  delay(0);
+}</code></pre><h3 id="4f9508f9-d0b0-4333-849a-1fa62068b773" class="block-color-teal_background">課堂練習 3 - Button</h3><figure id="a6f45cf1-aef6-4fa8-836a-214d7b736be2" class="image"><a href="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%202.png"><img style="width:336px" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%202.png"/></a></figure><h3 id="68de63d8-1362-4f23-b606-0d341b703461" class="">Arduino Sketch 3a</h3><pre id="dd4df7cd-7e24-4154-b06c-1baa944780f2" class="code code-wrap"><code>int buttonState= 0;
+
+void setup() {
+  pinMode(2, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  buttonState= digitalRead(2);
+  digitalWrite(13, buttonState);
+  delay(10);
+}
+</code></pre><hr id="f33f542c-12f6-4595-a10d-bb8e0111a621"/><h3 id="a2570d91-301a-4f94-93a0-71925d51eb45" class="">Arduino Sketch 3b</h3><ul id="6b3745b8-1708-4f7f-9a73-bcc8e18c8d71" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow">Press and hold the button for more than 3 seconds, the LED starts to blink</mark></li></ul><pre id="08abc3ac-63d5-4570-ab59-a535152285b4" class="code code-wrap"><code>int bt= 0;
+int tp= 0;
+bool led= LOW;
+
+void setup() {
+  pinMode(2, INPUT);
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  bt= digitalRead(2);
+  tp= (bt==LOW)?0:tp+1;
+if (tp&gt;30)
+    led= (tp%5==0)?!led:led;
+elseled= bt;
+  digitalWrite(13, led);
+  delay(100);
+}</code></pre><p id="abcebb04-17f6-4022-b263-3683be8db3db" class="">
+</p><h3 id="f7b517dd-1c64-4caa-8913-523bca9d65f7" class="block-color-orange_background">課堂作業 1 - <strong>不使用delay(...)函數的呼吸燈(Fade Led)</strong></h3><ul id="4613ed6f-c5ee-46a0-a720-d69db2e44c48" class="bulleted-list"><li style="list-style-type:disc">請參考【課堂練習 1】及【課堂練習 2】 </li></ul><ul id="db2dfcda-d9bf-4562-b3f5-ffc8cec7f460" class="bulleted-list"><li style="list-style-type:disc">函數<code>PA()</code> 實現呼吸燈的動作。</li></ul><ul id="6fe6107b-f94d-4fb8-afa2-21bbdddc318b" class="bulleted-list"><li style="list-style-type:disc">除了<code>loop()</code>函數的 <code>delay(0)</code>外，程式中不得使用<code>delay(...)</code>函數。</li></ul><h3 id="90526334-63b9-4d8c-ac1b-a8adab7d843c" class="">Arduino Sketch Template</h3><pre id="14db84da-db8e-45fb-bd60-308aca8ebc40" class="code code-wrap"><code>int led= 9;
+// add your code herevoid setup() {
+  pinMode(led, OUTPUT);
+}
+
+void PA() {
+// add your code here
+}
+
+void loop() {
+    PA();
+    delay(0);
+}</code></pre><h3 id="0e9d1a31-abee-4676-ad7f-f0066a267711" class="block-color-orange_background">課堂作業 2 - 【課堂作業 1】 + <strong>按鍵控制的 LED 閃爍</strong></h3><ul id="f09c71dc-ab14-404a-acf4-a4bf5eac7b58" class="bulleted-list"><li style="list-style-type:disc">請擴充你的【課堂作業 1】設計。</li></ul><ul id="441d5f99-f01e-4114-a4da-e220272fbc16" class="bulleted-list"><li style="list-style-type:disc">函數<code>PB()</code>負責按鍵的讀取，當按鍵被按下時<code>LED 13</code>閃爍(亮/暗 0.5/0.5 sec)。</li></ul><figure id="cf9bca27-7e09-4a44-a046-500413ac7fc1" class="image"><a href="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%203.png"><img style="width:432px" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/Untitled%203.png"/></a></figure><h3 id="a4a9e3bc-a108-4330-ac8d-a60bfdf4ce07" class="">Arduino Sketch Template</h3><pre id="eb360d2c-1239-4692-8485-f711e3ab3fc5" class="code code-wrap"><code>int led= 9;
+int button= 7;
+// add your code herevoid setup() {
+  pinMode(led, OUTPUT);
+}
+
+void PA() {
+// add your code here
+}
+
+void PB() {
+// add your code here
+}
+
+void loop() {
+    PA();
+    PB();
+    delay(0);
+}</code></pre><h3 id="6a3ce319-250c-41d4-8a1e-5fd118d22cbd" class="block-color-orange_background">課堂作業 3 - 【課堂作業 2】 + <strong>可控制閃爍快/慢的 LED。</strong></h3><ul id="62a4de5e-199a-414c-86c4-3b89eedb9868" class="bulleted-list"><li style="list-style-type:disc">請擴充你的【課堂作業 2】 設計。</li></ul><ul id="4f6f4a12-fa2c-4da3-85ab-f5b19dba5a21" class="bulleted-list"><li style="list-style-type:disc">函數<code>PB()</code>負責按鍵的讀取：<ul id="916d679f-24ee-402e-9b1c-e72290806f18" class="bulleted-list"><li style="list-style-type:circle">當按鍵<code>剛</code>被按下時<code>LED 13</code>閃爍(亮/暗 0.5/0.5 sec)。</li></ul><ul id="9eb5d2dd-1afc-415d-9f41-3c4e5b1c323d" class="bulleted-list"><li style="list-style-type:circle">當按鍵<code>持續</code>被按住超過<code>5</code>秒鐘時，改變閃爍速度(亮/暗 0.2/0.2 sec)。</li></ul><p id="15d02988-29df-4ff5-854b-1955a1658ab4" class="">
+</p></li></ul><p id="4f6d5fd9-b85c-4160-b22a-9d5597d57247" class="">
+</p><figure id="38e087ea-f2ac-471b-b7f8-bf2417337ad5" class="image"><a href="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/%25E5%259C%2596%25E7%2589%25873.png"><img style="width:1322px" src="Arduino%20Programming%20Basics%203%20614a05c9ecdb4bbb9f0362bb54d241a0/%25E5%259C%2596%25E7%2589%25873.png"/></a></figure></div></article>
+<script>hljs.highlightAll();</script>
+</body></html>
