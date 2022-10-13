@@ -1,0 +1,819 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>I2C Communication 1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></head><body><article id="2ea1d142-5eda-4d6d-b191-192dd4e0555c" class="page sans"><header><img class="page-cover-image" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/mcu5.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/yang-tr-wb.png"/></div><h1 class="page-title">I2C Communication 1</h1><table class="properties"><tbody><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Week</th><td>10</td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>實作練習</th><td>TinkerCAD + Arduino Uno</td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>課程單元</th><td>串列介面 I2C 實驗 (一)</td></tr></tbody></table><link rel="stylesheet" href="dark-theme.css"><link rel="stylesheet"  target="_blank" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/github-dark-dimmed.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script></header><div class="page-body"><h1 id="97f9e573-9dbd-46c7-a96b-e3fe5e555900" class="block-color-pink_background">學習目標</h1><h3 id="22efb97d-2de8-4aaa-87b8-50d9b2bb45d6" class="block-color-orange">1. I2C 串列通訊介面簡介。</h3><h3 id="3c03d94f-496e-4a4f-9df0-94693235f938" class="block-color-orange">2. 在 Arduino UNO 微控制器上使用 I2C 串列通訊。</h3><h1 id="d08f07f2-11bd-46be-89c1-23d678cfffd6" class="block-color-pink_background">參考資料</h1><div id="c86fda86-6e27-41af-9906-2749d879d134" class="column-list"><div id="4619eeea-2f7b-4623-ab69-2cdc571e3ea3" style="width:50%" class="column"><figure id="c033416a-771e-44fb-8767-1e5c5756fe6f"><a  target="_blank" href="https://www.arduino.cc/en/reference/wire" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Arduino - Wire</div><div class="bookmark-description">This library allows you to communicate with / TWI devices. On the Arduino boards with the R3 layout (1.0 pinout), the SDA (data line) and SCL (clock line) are on the pin headers close to the AREF pin.</div></div><div class="bookmark-href"><img src="https://www.arduino.cc/favicon.ico" class="icon bookmark-icon"/>https://www.arduino.cc/en/reference/wire</div></div></a></figure></div><div id="ed23abea-51c1-4d42-a23b-ba75ee8bba7d" style="width:50%" class="column"><figure id="a8abb159-a41d-411a-a857-d06271a03fca"><a  target="_blank" href="https://www.circuitbasics.com/basics-of-the-i2c-communication-protocol/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Basics of the I2C Communication Protocol</div><div class="bookmark-description">So far, we&#x27;ve talked about the basics of SPI communication and UART communication, so now let&#x27;s go into the final protocol of this series, the Inter-Integrated Circuit, or I2C. You&#x27;ll probably find yourself using I2C if you ever build projects that use OLED displays, barometric pressure sensors, or gyroscope/accelerometer modules.</div></div><div class="bookmark-href"><img src="https://www.circuitbasics.com/wp-content/uploads/2017/01/cropped-Circuit-Basics-Image-192x192.png" class="icon bookmark-icon"/>https://www.circuitbasics.com/basics-of-the-i2c-communication-protocol/</div></div><img src="https://www.circuitbasics.com/wp-content/uploads/2016/01/Introduction-to-I2C-Single-Master-Single-Slave.png" class="bookmark-image"/></a></figure></div></div><h1 id="3359aa00-4ed7-4ae6-85d4-624416f2ac3d" class="block-color-pink_background">課程設計</h1><blockquote id="02f5a26c-958d-4f11-a737-3311a04282f6" class=""><a  target="_blank" href="https://www.circuitbasics.com/basics-of-the-i2c-communication-protocol/">https://www.circuitbasics.com/basics-of-the-i2c-communication-protocol/</a></blockquote><h2 id="bc89b709-faf0-488c-94cf-023b6dfc4a35" class="block-color-orange">INTRODUCTION TO I2C COMMUNICATION</h2><div id="9f87a346-9094-43e9-b763-ebf83836f6fe" class="column-list"><div id="e4c809f6-c5dc-487e-ac1a-03bc1859ef64" style="width:50%" class="column"><figure id="bbf776f6-f94c-4c24-ac3a-951e18cd695f" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled.png"><img style="width:1280px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled.png"/></a></figure><h3 id="c7000fdb-cd00-4904-bbc0-a1ddadcae44b" class="block-color-teal"><strong>ADVANTAGES</strong></h3><ul id="b3d2bb2b-e00b-48dc-9b91-e86139ece3b8" class="bulleted-list"><li style="list-style-type:disc">Only uses <code>two wires</code></li></ul><ul id="a008bdf8-b89e-451c-bd03-b2069a46f82f" class="bulleted-list"><li style="list-style-type:disc">Supports <code>multiple masters</code> and <code>multiple slaves</code></li></ul><ul id="9ac4913b-f0ba-444a-a6e6-36eaf49d778a" class="bulleted-list"><li style="list-style-type:disc">ACK/NACK bit gives confirmation that each frame is transferred successfully</li></ul><ul id="9fd4e732-0540-4396-9bd2-a40c6ca585df" class="bulleted-list"><li style="list-style-type:disc">Well known and <code>widely used</code> protocol</li></ul><ul id="0e35bfda-80c9-4190-816f-75d643fcff40" class="bulleted-list"><li style="list-style-type:disc"><code>Hardware is less complicated</code> than with <code>UARTs</code></li></ul></div><div id="9d2902d8-26dd-4943-909a-7d187640a7de" style="width:50%" class="column"><figure id="994b52ba-8850-453b-9ff4-362929fc14ea" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%201.png"><img style="width:384px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%201.png"/></a></figure><h3 id="a7c9f27a-0afc-4f38-9051-f9a7ec0d901b" class="block-color-red"><strong>DISADVANTAGES</strong></h3><ul id="2af85fbb-e9c3-4a2c-bbc9-fb6fab063b25" class="bulleted-list"><li style="list-style-type:disc"><code>Slower</code> data transfer rate than <code>SPI</code></li></ul><ul id="c947c1aa-a33a-4da1-8b01-7955ebdc83ce" class="bulleted-list"><li style="list-style-type:disc">The size of the <code>data frame is limited to 8 bits</code></li></ul><ul id="b626d85a-d04b-4b16-8eef-a264ff2f13b9" class="bulleted-list"><li style="list-style-type:disc"><code>More complicated hardware</code> needed to implement than <code>SPI</code></li></ul></div></div><div id="3befa230-2f80-4184-afec-d6fc69b22fa2" class="column-list"><div id="5278520d-8ed2-440f-9ac2-8d79b6b86a8e" style="width:50%" class="column"><h3 id="ae327a92-7c8f-433f-9c1a-f56c5975984a" class="block-color-orange"><strong>SINGLE MASTER WITH MULTIPLE SLAVES</strong></h3><blockquote id="c9c1bd8f-638d-443a-baa6-90b0a2f1e5bf" class="">The problem with multiple masters in the same system comes <code>when two masters try to send or receive data at the same time</code> over the SDA line. To solve this problem, each master needs to detect if the SDA line is low or high before transmitting a message.</blockquote><figure id="93305b0e-cdbd-4eeb-8442-a082f9caa962" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%202.png"><img style="width:384px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%202.png"/></a></figure></div><div id="dc3937cd-7a73-496f-b775-683f76835fbc" style="width:50.000000000000014%" class="column"><h3 id="9264414a-61c1-4415-8025-24c3a7babcd6" class="block-color-orange"><strong>MULTIPLE MASTER WITH MULTIPLE SLAVES</strong></h3><figure id="ef7dcd50-e78c-4d1d-a09e-fb87920482de" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%203.png"><img style="width:384px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/Untitled%203.png"/></a></figure></div></div><p id="826c5e16-a139-405b-bb4e-d6c2df268560" class="">
+</p><h2 id="f7b7ddd7-174e-4062-9b3d-2c651b8b9e1a" class="block-color-orange">課堂練習 1 - Arduino UNO I2C Master Read Slave Write</h2><blockquote id="22900e96-28d9-409d-8a4c-24677b0d76e7" class=""><a  target="_blank" href="https://www.arduino.cc/en/reference/wire">https://www.arduino.cc/en/reference/wire</a></blockquote><figure id="da1a3b0a-8229-4d62-8f69-268a29a3ba62" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_mrsw.gif"><img style="width:768px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_mrsw.gif"/></a></figure><div id="eb292033-ec42-4c36-aba5-c0b6173088a8" class="column-list"><div id="f85d740a-91c9-4e3e-a3ae-30964eb18b7d" style="width:50%" class="column"><h3 id="0060d1a1-791e-4984-b463-d93404ae3640" class="block-color-yellow">I2C Master</h3><pre id="c55db5a5-7a53-41bb-a7cc-5fd78f33f07a" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+void setup() {
+  Wire.begin(); 
+  Serial.begin(9600);  
+}
+
+void loop() {
+  Wire.requestFrom(4, 5);    
+  
+  Serial.print(&quot;Master read : &quot;);
+  while(Wire.available()) { 
+    char c = Wire.read(); 
+    Serial.print(c);         
+  }
+  Serial.println();
+
+  delay(1000);
+}</code></pre></div><div id="bf28999e-d8d8-4b7c-8d72-8b2b065645e3" style="width:50%" class="column"><h3 id="653652f2-6f7d-448a-b30e-a1f16637944d" class="block-color-yellow">I2C Slave</h3><pre id="6b4de408-a753-416a-a881-dec2eb32bf8b" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+void setup() {
+  Serial.begin(9600);
+  Wire.begin(4);  
+  Wire.onRequest(requestEvent); 
+}
+
+char buf[6] = {&#x27;h&#x27;,&#x27;e&#x27;,&#x27;l&#x27;,&#x27;l&#x27;,&#x27;o&#x27;,0};
+
+void loop() {
+  delay(100);
+}
+
+void requestEvent() {
+  Serial.print(&quot;Slave write : &quot;);
+  Serial.println(buf);
+  Wire.write(buf);
+}</code></pre></div></div><p id="12011a3d-1eed-4077-866e-43bbc34a4959" class="">
+</p><h2 id="0274e148-bdbf-45a5-8d68-33992b93cba0" class="block-color-orange">課堂練習 2 - Arduino UNO I2C Master Write Slave Read</h2><blockquote id="0cf5ed54-4fb6-4352-9971-373bfeeeae6c" class=""><a  target="_blank" href="https://www.arduino.cc/en/reference/wire">https://www.arduino.cc/en/reference/wire</a></blockquote><figure id="422ca35f-c35d-4776-be27-7c669712e2f0" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_mwsr.gif"><img style="width:816px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_mwsr.gif"/></a></figure><div id="c1587f86-caae-4e3b-9593-fd4855d58c08" class="column-list"><div id="963f3004-3e62-4820-a3e6-cae90a1af803" style="width:50%" class="column"><h3 id="211bfdf0-607d-4469-8ecb-cdab846f00f7" class="block-color-yellow">I2C Master</h3><pre id="53352ba8-e35b-4c88-b311-2b92fb9524b9" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+}
+
+char buf[10];
+
+void i2buf(int v) {
+  for(int i=4; i&gt;=0; i--) {
+  	buf[i] = v%10+&#x27;0&#x27;;
+    v/=10;
+  }
+  buf[5]=0;
+}
+
+void loop() {
+  i2buf(random(10000,32767));
+  Serial.print(&quot;Send =&gt; &quot;);
+  Serial.println(buf);
+  Wire.beginTransmission(4); 
+  Wire.write(buf);    
+  Wire.endTransmission();          
+  delay(2000);
+}</code></pre></div><div id="3eecf35e-74d5-47b1-b21d-718b7cb55cbe" style="width:50%" class="column"><h3 id="929a0289-546c-41c8-b854-fbdc78369eb1" class="block-color-yellow">I2C Slave</h3><pre id="df98872d-54c9-4b2d-8804-d27c9a107571" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+char buf[10];
+
+void setup() {
+  Serial.begin(9600);           
+  Wire.begin(4);  
+  Wire.onReceive(receiveEvent); 
+}
+
+void loop() {
+  delay(100);
+}
+
+void receiveEvent(int howMany) {
+  Serial.print(howMany);
+  Serial.println(&quot; bytes received&quot;);
+  int i = 0;
+  while(Wire.available()&gt;0) {
+    buf[i++] = Wire.read(); 
+  }
+  buf[i]=0;
+  Serial.print(&quot;Received &lt;= &quot;);
+  Serial.println(buf);
+}</code></pre></div></div><h2 id="4ed7ce9e-94d5-4790-80bd-b091a6ee58d5" class="block-color-orange">課堂練習 3 - Arduino UNO Scanning Available I2C Devices</h2><blockquote id="fa2709ce-4811-4de6-9144-c91a27e623ea" class=""><a  target="_blank" href="https://www.arduino.cc/en/reference/wire">https://www.arduino.cc/en/reference/wire</a></blockquote><figure id="55fa6864-4dc1-41db-a30e-ba59b45b793e" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_scan.gif"><img style="width:912px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/i2c_scan.gif"/></a></figure><div id="a994df25-dd66-4380-842f-443fd04ef36e" class="column-list"><div id="58f3bb9c-4b26-4642-bf5d-c3d4e9778103" style="width:50%" class="column"><h3 id="c53dbe4b-3ad3-410b-a3f6-7d8b870d3b92" class="block-color-yellow">I2C Master</h3><pre id="b2e001ce-8f7f-4a5c-836d-b8b89f985fd3" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+ 
+void setup(){
+	Wire.begin();
+	Serial.begin(9600);
+	Serial.println(&quot;\nI2C Scanner&quot;);
+}
+
+void loop(){
+  byte error, address;
+  int nDevices;
+  Serial.println(&quot;Scanning...&quot;);
+  nDevices = 0;
+  for (address = 1; address &lt; 127; address++ ){
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+    if (error == 0){
+      Serial.print(&quot;I2C slave @ &quot;);
+      Serial.println(address);
+      nDevices++;
+    }else if (error == 4){
+      Serial.print(&quot;Unknow error slave @ &quot;);
+      Serial.println(address);
+    }
+  }
+  if (nDevices == 0)
+  	Serial.println(&quot;No I2C slave found\n&quot;);
+  else
+  	Serial.println(&quot;done\n&quot;);
+  delay(5000);
+}</code></pre></div><div id="410a1318-529f-4ff7-9ed7-8839a7b424ad" style="width:50%" class="column"><h3 id="8c8a6e37-62c7-499e-9fea-fed21df8eb1f" class="block-color-yellow">I2C Slave 1 (Fixed Address) </h3><pre id="0bc58254-3d07-415a-a9aa-7849d190089e" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+byte addr = (byte)random(50,127);
+
+void setup() {
+  Serial.begin(9600);
+  randomSeed(analogRead(A0));
+  Serial.print(&quot;addr = &quot;);
+  Serial.println(addr);
+  Wire.begin(addr);
+}
+
+void loop() {
+  delay(1000);
+}</code></pre><h3 id="b58dd335-c3ca-4eae-bc6c-d0e5ccf9f2e7" class="block-color-yellow">I2C Slave 2 (Dynamic Address) </h3><pre id="01e03f2a-5c7d-4ccc-baad-2375ddb790a0" class="code code-wrap"><code>#include &lt;Wire.h&gt;
+
+byte addr = (byte)random(1,10);
+
+void setup() {
+  Serial.begin(9600);
+  randomSeed(analogRead(A0));
+}
+
+void loop() {
+  Serial.print(&quot;addr = &quot;);
+  Serial.println(addr);
+  Wire.begin(addr);
+  delay(random(1,3)*1000);
+  addr = (byte)random(1,10);
+}</code></pre></div></div><p id="bbbcb616-f1da-443e-939c-05468c305a3d" class="">
+</p><h1 id="32cc97e6-111a-4b63-9bcd-7af49185e606" class="block-color-pink_background">課堂作業</h1><h2 id="92a26798-97ef-419a-a07b-4138a29ea369" class="block-color-orange">Homework 01 - 使用 TinkerCAD 完成課堂練習 1 ~ 3 的模擬驗證。 </h2><h2 id="5838936d-cc43-4b97-800c-ae1162a714ff" class="block-color-orange">Homework 02 - 使用 Arduino UNO 完成課堂練習 1、2 的實體驗證。 </h2><p id="af75ac33-4971-40d3-8c63-ea36b59d9765" class="block-color-orange">
+</p><figure id="7e571c9a-dc40-4c17-8516-d6bfdb6be855" class="image"><a href="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/%E5%9C%96%E7%89%873.png"><img style="width:1322px" src="I2C%20Communication%201%202ea1d1425eda4d6db191192dd4e0555c/%E5%9C%96%E7%89%873.png"/></a></figure></div></article>
+<script>hljs.highlightAll();</script>
+</body></html>
