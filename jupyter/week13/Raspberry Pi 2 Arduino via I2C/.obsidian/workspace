@@ -1,0 +1,94 @@
+{
+  "main": {
+    "id": "3572d5efffa62c3b",
+    "type": "split",
+    "children": [
+      {
+        "id": "a2076e61c40f47d7",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "I2C Interconnection.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "20b3c29c2d7b5bac",
+    "type": "split",
+    "children": [
+      {
+        "id": "30f037bd46ebbf68",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8250cd642fb4519d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "558aec563920f86c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5aee66b51b4151a2",
+    "type": "split",
+    "children": [
+      {
+        "id": "ce4919e7fa42842f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "66bd2e7cd59cb7d4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "I2C Interconnection.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "I2C Interconnection.md",
+    "Untitled.md",
+    "rpi2uno-i2c.png",
+    "Pasted image 20201208100359.png"
+  ]
+}
