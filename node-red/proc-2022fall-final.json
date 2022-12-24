@@ -1,0 +1,415 @@
+[
+    {
+        "id": "edff138b34f88657",
+        "type": "tab",
+        "label": "Problem 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1d81d06da5f37373",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "Times New Roman,Times,serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "Lucida Sans Typewriter,Lucida Console,Monaco,monospace",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "Lucida Sans Typewriter,Lucida Console,Monaco,monospace"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a69ccf0086fa02e0",
+        "type": "ui_tab",
+        "name": "Problem 1",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "2ba0005d92ca6d02",
+        "type": "ui_group",
+        "name": "南臺一路",
+        "tab": "a69ccf0086fa02e0",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "54792db91ddb58a2",
+        "type": "ui_group",
+        "name": "南臺二路",
+        "tab": "a69ccf0086fa02e0",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3d17869c2315bf98",
+        "type": "ui_media",
+        "z": "edff138b34f88657",
+        "group": "2ba0005d92ca6d02",
+        "name": "",
+        "width": 0,
+        "height": 0,
+        "order": 0,
+        "category": "traffic",
+        "file": "off.png",
+        "layout": "adjust",
+        "showcontrols": true,
+        "loop": true,
+        "onstart": false,
+        "scope": "local",
+        "tooltip": "",
+        "x": 610,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b2499ee908b02b5f",
+        "type": "ui_button",
+        "z": "edff138b34f88657",
+        "name": "",
+        "group": "2ba0005d92ca6d02",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "OFF",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "traffic/off.png",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "3d17869c2315bf98"
+            ]
+        ]
+    },
+    {
+        "id": "33969a6bcc3ccf30",
+        "type": "ui_button",
+        "z": "edff138b34f88657",
+        "name": "",
+        "group": "2ba0005d92ca6d02",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "RED",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "traffic/red.png",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "3d17869c2315bf98"
+            ]
+        ]
+    },
+    {
+        "id": "93d9f36e0e00d280",
+        "type": "ui_button",
+        "z": "edff138b34f88657",
+        "name": "",
+        "group": "2ba0005d92ca6d02",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "GREEN",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "traffic/green.png",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "3d17869c2315bf98"
+            ]
+        ]
+    },
+    {
+        "id": "fe3b242c279a38f1",
+        "type": "function",
+        "z": "edff138b34f88657",
+        "name": "function 1",
+        "func": "var count = 0;\nvar intervalId;\n\nfunction triggerMessage() {\n    var output;\n    count++;\n\n    if (count % 3 == 1) {\n        output = \"traffic/green.png\";\n    } else if (count % 3 == 2) {\n        output = \"traffic/red.png\";\n    } else {\n        output = \"traffic/off.png\";\n    }\n\n    var msg = { payload: output };\n    return msg;\n}\n\nintervalId = setInterval(function() {\n    node.send([triggerMessage()]);\n}, 1000);\n\n\nnode.on(\"input\", function(msg) {\n    if (msg.payload === \"stop\") {\n        clearInterval(intervalId);\n    }\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "3d17869c2315bf98"
+            ]
+        ]
+    },
+    {
+        "id": "dd34475385c02b01",
+        "type": "ui_button",
+        "z": "edff138b34f88657",
+        "name": "",
+        "group": "2ba0005d92ca6d02",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "GO",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 480,
+        "wires": [
+            [
+                "fe3b242c279a38f1"
+            ]
+        ]
+    },
+    {
+        "id": "e0389b79cd821398",
+        "type": "ui_button",
+        "z": "edff138b34f88657",
+        "name": "",
+        "group": "2ba0005d92ca6d02",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "STOP",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "fe3b242c279a38f1",
+                "7ee0dec17ac7c9c8"
+            ]
+        ]
+    },
+    {
+        "id": "7ee0dec17ac7c9c8",
+        "type": "function",
+        "z": "edff138b34f88657",
+        "name": "function 2",
+        "func": "var intervalId;\nvar cnt = 0;\n\nfunction triggerMessage(msg) {\n    cnt++;\n    if (cnt<3)\n        return {\"payload\":\"hello\"};\n    else {\n     clearInterval(intervalId);\n     return null;\n    }\n}\n\nintervalId = setInterval(function() {\n    node.send(triggerMessage());\n}, 1000);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n// Stop the repetition of the triggerMessage function when a message with payload \"stop\" is received\n\n",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 600,
+        "wires": [
+            [
+                "5761ca302fad7406"
+            ]
+        ]
+    },
+    {
+        "id": "5761ca302fad7406",
+        "type": "debug",
+        "z": "edff138b34f88657",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "656bf457965e5d99",
+        "type": "inject",
+        "z": "edff138b34f88657",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 620,
+        "wires": [
+            [
+                "7ee0dec17ac7c9c8"
+            ]
+        ]
+    },
+    {
+        "id": "7d1a6094088f85cd",
+        "type": "inject",
+        "z": "edff138b34f88657",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "stop",
+        "payloadType": "str",
+        "x": 110,
+        "y": 700,
+        "wires": [
+            [
+                "7ee0dec17ac7c9c8"
+            ]
+        ]
+    }
+]
